@@ -7,6 +7,7 @@ import com.checkout.kata.util.NoProductsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class CheckoutService {
@@ -29,12 +30,10 @@ public class CheckoutService {
 
         for(SpecialPrice specialPrice: specialPrices)
         {
-            float priceWithoutDiscount = products.stream()
-                    .filter(product -> product.getItem().equals(specialPrice.getItem()))
+            float priceWithoutDiscount = getProductStream(products, specialPrice)
                     .findFirst().get().getPrice();
 
-            long countOccurrences = products.stream()
-                    .filter(product -> product.getItem().equals(specialPrice.getItem()))
+            long countOccurrences = getProductStream(products, specialPrice)
                     .count();
             int multiplyDiscount = (int) countOccurrences / specialPrice.getQuantity();
             float totalPriceForCurrentProduct = priceWithoutDiscount * specialPrice.getQuantity();
@@ -43,6 +42,11 @@ public class CheckoutService {
         }
 
         return totalDiscount;
+    }
+
+    private Stream<Product> getProductStream(List<Product> products, SpecialPrice specialPrice) {
+        return products.stream()
+                .filter(product -> product.getItem().equals(specialPrice.getItem()));
     }
 
     private double getTotalWithoutDiscount(List<Product> products) {
