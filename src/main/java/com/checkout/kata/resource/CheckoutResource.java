@@ -22,7 +22,7 @@ public class CheckoutResource {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getTotalPrice(@RequestBody CheckoutRequest checkoutRequest) {
 
-        int totalWithDiscount = checkoutService.getTotalWithDiscount(checkoutRequest);
+        double totalWithDiscount = checkoutService.getTotalWithDiscount(checkoutRequest);
         return new ResponseEntity(totalWithDiscount, HttpStatus.OK);
 
 

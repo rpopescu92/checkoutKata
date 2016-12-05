@@ -40,7 +40,7 @@ public class CheckoutServiceTest {
                                                 .products(products)
                                                 .specialPrices(specialPrices)
                                                 .build();
-        int totalAmountToPay = checkoutService.getTotalWithDiscount(checkoutRequest);
+        double totalAmountToPay = checkoutService.getTotalWithDiscount(checkoutRequest);
         Assert.assertTrue(totalAmountToPay == 84);
     }
 
@@ -59,7 +59,7 @@ public class CheckoutServiceTest {
                 .products(products)
                 .specialPrices(specialPrices)
                 .build();
-        int totalAmountToPay = checkoutService.getTotalWithDiscount(checkoutRequest);
+        double totalAmountToPay = checkoutService.getTotalWithDiscount(checkoutRequest);
         Assert.assertTrue(totalAmountToPay == 12);
     }
 
@@ -71,6 +71,6 @@ public class CheckoutServiceTest {
                 .products(products)
                 .specialPrices(specialPrices)
                 .build();
-        int totalAmountToPay = checkoutService.getTotalWithDiscount(checkoutRequest);
+        double totalAmountToPay = checkoutService.getTotalWithDiscount(checkoutRequest);
     }
 }

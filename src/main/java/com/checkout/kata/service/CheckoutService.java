@@ -12,7 +12,7 @@ import java.util.List;
 public class CheckoutService {
 
 
-    public int getTotalWithDiscount(CheckoutRequest checkoutRequest) {
+    public double getTotalWithDiscount(CheckoutRequest checkoutRequest) {
         int totalDiscount = getTotalDiscount(checkoutRequest);
 
         return getTotalWithoutDiscount(checkoutRequest.getProducts()) - totalDiscount;
@@ -29,7 +29,7 @@ public class CheckoutService {
 
         for(SpecialPrice specialPrice: specialPrices)
         {
-            int priceWithoutDiscount = products.stream()
+            float priceWithoutDiscount = products.stream()
                     .filter(product -> product.getItem().equals(specialPrice.getItem()))
                     .findFirst().get().getPrice();
 
@@ -37,7 +37,7 @@ public class CheckoutService {
                     .filter(product -> product.getItem().equals(specialPrice.getItem()))
                     .count();
             int multiplyDiscount = (int) countOccurrences / specialPrice.getQuantity();
-            int totalPriceForCurrentProduct = priceWithoutDiscount * specialPrice.getQuantity();
+            float totalPriceForCurrentProduct = priceWithoutDiscount * specialPrice.getQuantity();
 
             totalDiscount += multiplyDiscount * ( totalPriceForCurrentProduct - specialPrice.getDiscountPrice());
         }
@@ -45,9 +45,9 @@ public class CheckoutService {
         return totalDiscount;
     }
 
-    private int getTotalWithoutDiscount(List<Product> products) {
+    private double getTotalWithoutDiscount(List<Product> products) {
         return products.stream()
                 .map(product -> product.getPrice())
-                .mapToInt(Integer::intValue).sum();
+                .mapToDouble(Float::floatValue).sum();
     }
 }

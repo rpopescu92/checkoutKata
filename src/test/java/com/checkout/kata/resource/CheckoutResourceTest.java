@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 
 import static org.mockito.Mockito.times;
@@ -44,11 +45,11 @@ public class CheckoutResourceTest {
         CheckoutRequest checkoutRequest = CheckoutRequest.builder().products(products)
                                                 .specialPrices(specialPrices).build();
 
-        Mockito.when(checkoutService.getTotalWithDiscount(checkoutRequest)).thenReturn(3);
+        Mockito.when(checkoutService.getTotalWithDiscount(checkoutRequest)).thenReturn(Double.valueOf(3));
         ResponseEntity responseEntity = checkoutResource.getTotalPrice(checkoutRequest);
         Assert.assertTrue(responseEntity.getStatusCode().equals(HttpStatus.OK));
         Mockito.verify(checkoutService, times(1)).getTotalWithDiscount(checkoutRequest);
-        Assert.assertTrue(responseEntity.getBody().equals(3));
+        Assert.assertTrue(responseEntity.getBody().equals(Double.valueOf(3)));
     }
 
 }

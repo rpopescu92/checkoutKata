@@ -13,5 +13,5 @@ public class SpecialPrice implements Serializable{
 
     private String item;
     private int quantity;
-    private int discountPrice;
+    private float discountPrice;
 }

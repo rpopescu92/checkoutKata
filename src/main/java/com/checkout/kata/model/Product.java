@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class Product implements Serializable {
 
     private String item;
-    private int price;
+    private float price;
 
 
 }
